@@ -1,4 +1,15 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/songs');
+//Express configuration
+var express = require('express'),
+    http = require('http');
 
-var Song = require('./lib/song.js');
+var app = express();
+
+app.use('/', require('./routes/index'));
+app.use('/songs', require('./routes/songs'));
+
+//SERVER INFO
+var port = 8000;
+var server = http.createServer(app);
+server.listen(port, function(){
+  console.log("Server is running on port " + port);
+});
