@@ -15,16 +15,27 @@ var songSchema = new mongoose.Schema({
     type : DataTypes.INTEGER,
     allowNull : false
   },
+  artist : {
+    type : DataTypes.STRING,
+    allowNull : false
+  }
   // See artist_id
   album_id : {
     type : DataTypes.INTEGER,
     allowNull : false
   },
+  album : {
+    type : DataTypes.INTEGER,
+    allowNull : false,
+  },
   rating : {
     type : DataTypes.STRING,
     allowNull : false
-  }
-  }, {
+  },
+  review : {
+    type : DataTypes.STRING,
+    allowNull : false
+  } {
   timestamps : true
   }
 });
