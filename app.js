@@ -9,6 +9,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 
 // app.use('/', require('./routes/index'));
 app.use('/songs', require('./routes/songs'));
+// app.use('/albums', require('./routes/albums'));
 
 
 app.use(function(err,req,res,next){

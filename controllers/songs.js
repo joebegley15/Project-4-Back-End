@@ -30,28 +30,65 @@ module.exports = (function () {
     });
   };
 
-  var show = function(req, res) {
-    Song.findById(id, function (err, song){
+  var notFound = function(){
+    var error = new Error("Not Found");
+    error.status = 404;
+    return error;
+  }
+
+  var show = function(req, res, next) {
+    Song.findById(req.params.id, function (err, song){
       if (err) {
         console.error(err);
+        return next(err);
       }
-      console.log(song);
+      if (! song) {
+        return next(notFound());
+      }
       res.json(song);
     });
   };
 
-  var deleteById = function(id) {
-    Song.findById(id, function(err, song) {
+  var update = function(req, res, next) {
+    Song.findById(req.params.id, function(err, song) {
       if (err) {
-        setTimeout(done, 0);
-        console.error(err);
-        return;
+        return next(err);
+      }
+      if (! song) {
+        return next(notFound());
+      }
+      console.log(req.body);
+
+      song.title = req.body.title;
+      song.artist_id = req.body.artist_id;
+      song.artist = req.body.artist;
+      song.album_id = req.body.album_id;
+      song.album = req.body.album;
+      song.rating = req.body.rating;
+      song.review = req.body.review;
+
+      song.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.sendStatus(204);
+      });
+    });
+  }
+
+  var deleteById = function(req, res, next) {
+    Song.findById(req.params.id, function(err, song) {
+      if (err) {
+        return next(err);
+      }
+      if (! song) {
+        return next(notFound());
       }
       song.remove(function(err) {
-        setTimeout(done, 0);
         if (err) {
-          console.error(err);
+          return next(err);
         }
+        res.sendStatus(204);
       });
     });
   };
@@ -60,6 +97,7 @@ module.exports = (function () {
     create: create,
     index: index,
     show: show,
-    deleteById: deleteById
+    deleteById: deleteById,
+    update: update
   }
 })();
