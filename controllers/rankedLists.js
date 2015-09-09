@@ -1,25 +1,25 @@
 'use strict';
 
 var models = require('../models/index');
-var Song = models.Song;
+var RankedList = models.RankedList;
 
 module.exports = (function () {
 
   var create = function(req, res, next) {
     console.log(req.body);
-    Song.create(req.body, function(err, song) {
+    RankedList.create(req.body, function(err, rankedList) {
       if (err){
         console.log(err);
         next(err);
       }
-      res.json(song);
+      res.json(rankedList);
     });
   };
 
   var index = function(req, res, next) {
-    Song.find()
-      .then(function success (songs) {
-        res.json(songs);
+    RankedList.find()
+      .then(function success (rankedLists) {
+        res.json(rankedLists);
     }, function error (err) {
       next(err);
     });
@@ -32,37 +32,34 @@ module.exports = (function () {
   }
 
   var show = function(req, res, next) {
-    Song.findById(req.params.id, function (err, song){
+    RankedList.findById(req.params.id, function (err, rankedList){
       if (err) {
         console.error(err);
         return next(err);
       }
-      if (! song) {
+      if (! rankedList) {
         return next(notFound());
       }
-      res.json(song);
+      res.json(rankedList);
     });
   };
 
   var update = function(req, res, next) {
-    Song.findById(req.params.id, function(err, song) {
+    RankedList.findById(req.params.id, function(err, rankedList) {
       if (err) {
         return next(err);
       }
-      if (! song) {
+      if (! rankedList) {
         return next(notFound());
       }
       console.log(req.body);
 
-      song.title = req.body.title;
-      song.artist_id = req.body.artist_id;
-      song.artist = req.body.artist;
-      song.album_id = req.body.album_id;
-      song.album = req.body.album;
-      song.rating = req.body.rating;
-      song.review = req.body.review;
+      rankedList.title = req.body.title;
+      rankedList.description = req.body.description;
+      rankedList.list = req.body.list;
+      rankedList.author = req.body.author;
 
-      song.save(function(err) {
+      rankedList.save(function(err) {
         if (err) {
           return next(err);
         }
@@ -72,14 +69,14 @@ module.exports = (function () {
   }
 
   var deleteById = function(req, res, next) {
-    Song.findById(req.params.id, function(err, song) {
+    RankedList.findById(req.params.id, function(err, rankedList) {
       if (err) {
         return next(err);
       }
-      if (! song) {
+      if (! rankedList) {
         return next(notFound());
       }
-      song.remove(function(err) {
+      rankedList.remove(function(err) {
         if (err) {
           return next(err);
         }

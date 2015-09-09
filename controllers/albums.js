@@ -1,25 +1,25 @@
 'use strict';
 
 var models = require('../models/index');
-var Song = models.Song;
+var Album = models.Album;
 
 module.exports = (function () {
 
   var create = function(req, res, next) {
     console.log(req.body);
-    Song.create(req.body, function(err, song) {
+    Album.create(req.body, function(err, album) {
       if (err){
         console.log(err);
         next(err);
       }
-      res.json(song);
+      res.json(album);
     });
   };
 
   var index = function(req, res, next) {
-    Song.find()
-      .then(function success (songs) {
-        res.json(songs);
+    Album.find()
+      .then(function success (albums) {
+        res.json(albums);
     }, function error (err) {
       next(err);
     });
@@ -32,37 +32,35 @@ module.exports = (function () {
   }
 
   var show = function(req, res, next) {
-    Song.findById(req.params.id, function (err, song){
+    Album.findById(req.params.id, function (err, album){
       if (err) {
         console.error(err);
         return next(err);
       }
-      if (! song) {
+      if (! album) {
         return next(notFound());
       }
-      res.json(song);
+      res.json(album);
     });
   };
 
   var update = function(req, res, next) {
-    Song.findById(req.params.id, function(err, song) {
+    Album.findById(req.params.id, function(err, album) {
       if (err) {
         return next(err);
       }
-      if (! song) {
+      if (! album) {
         return next(notFound());
       }
       console.log(req.body);
 
-      song.title = req.body.title;
-      song.artist_id = req.body.artist_id;
-      song.artist = req.body.artist;
-      song.album_id = req.body.album_id;
-      song.album = req.body.album;
-      song.rating = req.body.rating;
-      song.review = req.body.review;
+      album.title = req.body.title;
+      album.artist_id = req.body.artist_id;
+      album.artist = req.body.artist;
+      album.rating = req.body.rating;
+      album.review = req.body.review;
 
-      song.save(function(err) {
+      album.save(function(err) {
         if (err) {
           return next(err);
         }
@@ -72,14 +70,14 @@ module.exports = (function () {
   }
 
   var deleteById = function(req, res, next) {
-    Song.findById(req.params.id, function(err, song) {
+    Album.findById(req.params.id, function(err, album) {
       if (err) {
         return next(err);
       }
-      if (! song) {
+      if (! album) {
         return next(notFound());
       }
-      song.remove(function(err) {
+      album.remove(function(err) {
         if (err) {
           return next(err);
         }
