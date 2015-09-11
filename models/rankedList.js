@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var rankedListSchema = new mongoose.Schema({
   title: String,
   description: String,
-  list: Array,
+  listHeader: Array,
+  listBody: Array,
   author: String
 });
 
