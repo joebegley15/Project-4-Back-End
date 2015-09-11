@@ -7,7 +7,8 @@ var songSchema = new mongoose.Schema({
   album_id: String,
   album: String,
   rating: String,
-  review: String
+  review: String,
+  image: String
 });
 
 var Song = mongoose.model('Song', songSchema);
