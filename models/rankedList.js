@@ -4,6 +4,7 @@ var rankedListSchema = new mongoose.Schema({
   title: String,
   description: String,
   listHeader: Array,
+  listHeader2: Array,
   listBody: Array,
   author: String
 });
