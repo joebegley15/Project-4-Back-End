@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/ga-wdi-boston/wdi_7_mongoose_intro/issues"
   },
-  "homepage": "https://github.com/ga-wdi-boston/wdi_7_mongoose_intro#readme"
+  "homepage": "https://github.com/ga-wdi-boston/wdi_7_mongoose_intro#readme",
+  "engines": {
+    "node": "0.12.4"
+  }
 }
