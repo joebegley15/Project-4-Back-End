@@ -10,6 +10,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "async": "^1.2.1",
+    "body-parser": "1.13.3",
     "commander": "^2.8.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
