@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://heroku_hh76b8zc:57QZha3X2@ds041571.mongolab.com:41571/heroku_hh76b8zc');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://joe:MongoLabPass@ds039073.mongolab.com:39073/musicreviewshell');
 
 var models = models || {};
 
